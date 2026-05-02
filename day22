@@ -1,0 +1,29 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct Node {
+    int data;
+    struct Node* next;
+};
+void insert(struct Node** head, int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = *head;
+    *head = newNode;
+}
+void findMiddle(struct Node* head) {
+    struct Node *slow = head, *fast = head;
+    if (head != NULL) {
+        while (fast != NULL && fast->next != NULL) {
+            fast = fast->next->next;
+            slow = slow->next;
+        }
+        printf("The middle element is [%d]\n", slow->data);
+    }
+}
+int main() {
+    struct Node* head = NULL;
+    insert(&head, 50); insert(&head, 40); insert(&head, 30);
+    insert(&head, 20); insert(&head, 10);
+    findMiddle(head);
+    return 0;
+}
