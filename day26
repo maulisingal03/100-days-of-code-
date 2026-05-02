@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct Node {
+    int data;
+    struct Node* prev;
+    struct Node* next;
+};
+void insert(struct Node** head, int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = (*head);
+    newNode->prev = NULL;
+    if ((*head) != NULL) (*head)->prev = newNode;
+    (*head) = newNode;
+}
+void traverse(struct Node* head) {
+    struct Node* temp = head;
+    struct Node* last = NULL;
+    printf("Forward: ");
+    while (temp != NULL) {
+        printf("%d ", temp->data);
+        last = temp;
+        temp = temp->next;
+    }
+    printf("\nBackward: ");
+    while (last != NULL) {
+        printf("%d ", last->data);
+        last = last->prev;
+    }
+    printf("\n");
+}
+int main() {
+    struct Node* head = NULL;
+    insert(&head, 30); insert(&head, 20); insert(&head, 10);
+    traverse(head);
+    return 0;
+}
