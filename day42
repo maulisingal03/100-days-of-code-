@@ -1,0 +1,17 @@
+#include <stdio.h>
+#define MAX 100
+int queue[MAX], stack[MAX];
+int front = -1, rear = -1, top = -1;
+void enqueue(int x) { if(rear == MAX-1) return; if(front == -1) front = 0; queue[++rear] = x; }
+int dequeue() { if(front == -1 || front > rear) return -1; return queue[front++]; }
+void push(int x) { stack[++top] = x; }
+int pop() { return stack[top--]; }
+int main() {
+    enqueue(10); enqueue(20); enqueue(30);
+    while (front <= rear && front != -1) push(dequeue());
+    front = rear = -1;
+    while (top != -1) enqueue(pop());
+    for (int i = front; i <= rear; i++) printf("%d ", queue[i]);
+    printf("\n");
+    return 0;
+}
