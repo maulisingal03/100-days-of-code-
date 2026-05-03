@@ -1,0 +1,21 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct Node { int data; struct Node* next; };
+struct Node* top = NULL;
+void push(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = top;
+    top = newNode;
+}
+void pop() {
+    if (top == NULL) return;
+    struct Node* temp = top;
+    top = top->next;
+    free(temp);
+}
+int main() {
+    push(10); push(20); pop();
+    if (top) printf("Top element: %d\n", top->data);
+    return 0;
+}
